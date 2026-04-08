@@ -15,7 +15,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'pip install -r app\\requirements.txt'
+                bat 'python -m pip install -r app\\requirements.txt'
             }
         }
 
