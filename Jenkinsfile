@@ -8,10 +8,10 @@ pipeline {
     stages {
 
         stage('Clone Repo') {
-            steps {
-                git 'https://github.com/Rishika-HC/ai-chatbot-devops.git'
-            }
-        }
+    steps {
+        git branch: 'main', url: 'https://github.com/Rishika-HC/ai-chatbot-devops.git'
+    }
+}
 
         stage('Install Dependencies') {
             steps {
