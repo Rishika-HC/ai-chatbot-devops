@@ -15,20 +15,20 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'python -m pip install -r app\\requirements.txt'
+                bat 'C:\\Users\\rishi\\anaconda3\\python.exe -m pip install -r app\\requirements.txt'
             }
         }
 
         stage('Run App in Background') {
             steps {
-                bat 'start /B python app\\app.py'
+                bat 'start /B C:\\Users\\rishi\\anaconda3\\python.exe app\\app.py'
                 bat 'timeout /t 5'
             }
         }
 
         stage('Run Selenium Tests') {
             steps {
-                bat 'python tests\\test_selenium.py'
+                bat 'C:\\Users\\rishi\\anaconda3\\python.exe tests\\test_selenium.py'
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                bat 'docker rm -f ai-chatbot || exit 0'
+                bat 'docker rm -f ai-chatbot'
                 bat 'docker run -d -p 5000:5000 --name ai-chatbot %DOCKER_IMAGE%'
             }
         }
