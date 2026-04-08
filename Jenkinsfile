@@ -20,10 +20,10 @@ pipeline {
         }
 
         stage('Run App in Background') {
-            steps {
-                bat 'start /B C:\\Users\\rishi\\anaconda3\\python.exe app\\app.py'
-                bat 'timeout /t 5'
-            }
+    steps {
+        bat 'start /B C:\\Users\\rishi\\anaconda3\\python.exe app\\app.py'
+        sleep 5
+    }
         }
 
         stage('Run Selenium Tests') {
