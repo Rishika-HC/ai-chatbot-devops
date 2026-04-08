@@ -8,39 +8,40 @@ pipeline {
     stages {
 
         stage('Clone Repo') {
-    steps {
-        git branch: 'main', url: 'https://github.com/Rishika-HC/ai-chatbot-devops.git'
-    }
-}
+            steps {
+                git branch: 'main', url: 'https://github.com/Rishika-HC/ai-chatbot-devops.git'
+            }
+        }
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r app/requirements.txt'
+                bat 'pip install -r app\\requirements.txt'
             }
         }
 
         stage('Run App in Background') {
             steps {
-                sh 'nohup python3 app/app.py &'
-                sleep 5
+                bat 'start /B python app\\app.py'
+                bat 'timeout /t 5'
             }
         }
 
         stage('Run Selenium Tests') {
             steps {
-                sh 'python3 tests/test_selenium.py'
+                bat 'python tests\\test_selenium.py'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                bat 'docker build -t %DOCKER_IMAGE% .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 5000:5000 $DOCKER_IMAGE'
+                bat 'docker rm -f ai-chatbot || exit 0'
+                bat 'docker run -d -p 5000:5000 --name ai-chatbot %DOCKER_IMAGE%'
             }
         }
     }
